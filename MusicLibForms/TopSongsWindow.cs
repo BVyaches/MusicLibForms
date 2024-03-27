@@ -29,9 +29,11 @@ namespace MusicLibForms
 
 	public partial class TopSongsWindow : Form
 	{
-		public TopSongsWindow()
+		AnalyticWindow analWind;
+		public TopSongsWindow(AnalyticWindow analWind)
 		{
 			InitializeComponent();
+			this.analWind = analWind;
 			dataGridView1.Rows.Clear();
 
 			ConnectionSQL conn = new ConnectionSQL();
@@ -80,8 +82,7 @@ namespace MusicLibForms
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			MainWindow mw = new MainWindow();
-			mw.Show();
+			analWind.Show();
 			Hide();
 		}
 

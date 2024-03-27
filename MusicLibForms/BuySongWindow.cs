@@ -16,9 +16,18 @@ namespace MusicLibForms
 {
 	public partial class BuySongWindow : Form
 	{
-		public BuySongWindow()
+		MainWindow main;
+		string userLogin;
+		bool buyInProcess = false;
+		bool buyFinished = false;
+		WMPLib.WindowsMediaPlayer player;
+
+		public BuySongWindow(MainWindow main, string login)
 		{
 			InitializeComponent();
+			player = new WMPLib.WindowsMediaPlayer();
+			this.main = main;
+			this.userLogin = login;
 			ConnectionSQL conn = new ConnectionSQL();
 			NpgsqlDataReader dataReader = conn.Query(@"Select * from songs_info");
 			if (dataReader.HasRows)
@@ -27,6 +36,7 @@ namespace MusicLibForms
 				dt.Load(dataReader);
 				dataGridView1.DataSource = dt;
 				dataGridView1.Columns["ID"].Visible = false;
+				dataGridView1.Columns["Композитор"].HeaderText = "Исполнитель";
 			}
 
 			DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn
@@ -35,7 +45,16 @@ namespace MusicLibForms
 				Text = "Купить",
 				UseColumnTextForButtonValue = true
 			};
+
+			DataGridViewButtonColumn playerColumn = new DataGridViewButtonColumn
+			{
+				Name = " ",
+				Text = "▶",
+				UseColumnTextForButtonValue = true
+			};
 			dataGridView1.Columns.Add(buttonColumn);
+			dataGridView1.Columns.Insert(0, playerColumn);
+			dataGridView1.Columns[" "].Width = 40;
 		}
 
 		private void BuySongWindow_Load(object sender, EventArgs e)
@@ -50,34 +69,51 @@ namespace MusicLibForms
 			{
 				// Получаем объект песни, соответствующий выбранной строке
 				int song_id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["ID"].Value.ToString());
+
+				string queue = @"SELECT
+									u.legal_entity
+								FROM
+									users u
+								WHERE
+									u.login = @login";
+				ConnectionSQL conn = new ConnectionSQL();
+				NpgsqlCommand command = new NpgsqlCommand(queue, conn.conn);
+				command.Parameters.AddWithValue("@login", userLogin);
+
+				NpgsqlDataReader reader = conn.Query(command);
 				
-				string clienName = nameBox.Text;
-
-				if (clienName.Length != 0 && clienName.Count(x => x == ' ') >= 2)
+				if (reader.HasRows)
 				{
-					string queue = @"INSERT INTO 
-										purchases (song_id, client_name, date_time) 
-									VALUES (@song_id, @client_name, @date_time);
-									SELECT 
-										currval(pg_get_serial_sequence('Purchases','id'))";
-					ConnectionSQL conn = new ConnectionSQL();
-					conn.conn.Open();
-					NpgsqlCommand command = new NpgsqlCommand(queue, conn.conn);
+					reader.Read();
+					bool isLegal = reader.GetBoolean(0);
+					if (isLegal)
+					{
+						EnterLegalDataWindow eldw = new EnterLegalDataWindow(userLogin, song_id, this);
+						eldw.Show();
+						Hide();
 
-					
-					command.Parameters.AddWithValue("@song_id", song_id);
-					command.Parameters.AddWithValue("@client_name", clienName);
+					}
+					else
+					{
+						EnterPhisDataWindow epdw = new EnterPhisDataWindow(userLogin, song_id, this);
+						epdw.Show();
+						Hide();
 
-					command.Parameters.AddWithValue("@date_time", DateTime.Now);
-
-					int dealId = Convert.ToInt32(command.ExecuteScalar());
-					// Выводим сообщение об успешной покупке
-					MessageBox.Show($"Транзакция успешна, код договора: {dealId}");
-					return;
+					}
 				}
+				return;
+			}
 
-
-				MessageBox.Show("Введите корректные ФИО");
+			else if (e.ColumnIndex == dataGridView1.Columns[" "].Index)
+			{
+				playerPanel.Visible = true;
+				int song_id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["ID"].Value.ToString());
+				string songName = dataGridView1.CurrentRow.Cells["Название"].Value.ToString();
+				string author = dataGridView1.CurrentRow.Cells["Композитор"].Value.ToString();
+				player.controls.stop();
+				player.URL = $"C:\\Users\\slava\\Music\\{song_id}.mp3";
+				songNameBox.Text = author + " - " + songName;
+				player.controls.play();
 				
 			}
 		}
@@ -89,8 +125,48 @@ namespace MusicLibForms
 
 		private void menuButton_Click(object sender, EventArgs e)
 		{
-			MainWindow mw = new MainWindow();
-			mw.Show();
+			main.Show();
+			Hide();
+			player.controls.stop();
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			player.controls.stop();
+			playerPanel.Visible = false;
+		}
+
+		void UpdateFilter()
+		{
+			BindingSource bs = new BindingSource();
+			bs.DataSource = dataGridView1.DataSource;
+			bs.Filter = "Композитор" + " LIKE '%" + composerFilter.Text + "%'" + " AND "
+				+ "Название" + " LIKE '%" + songFilter.Text + "%'" + " AND "
+				+ "Жанры" + " LIKE '%" + genresFilter.Text + "%'";
+			dataGridView1.DataSource = bs;
+		}
+
+		private void textBox2_TextChanged(object sender, EventArgs e)
+		{
+			UpdateFilter();
+		}
+
+		private void songFilter_TextChanged(object sender, EventArgs e)
+		{
+			UpdateFilter();
+		}
+
+		private void genresFilter_TextChanged(object sender, EventArgs e)
+		{
+			UpdateFilter();
+		}
+
+		private void historyButton_Click(object sender, EventArgs e)
+		{
+			player.controls.stop();
+			playerPanel.Visible = false;
+			HistoryWindow hw = new HistoryWindow(userLogin, this);
+			hw.Show();
 			Hide();
 		}
 	}

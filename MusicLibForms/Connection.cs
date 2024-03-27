@@ -18,20 +18,28 @@ namespace MusicLibForms
 		/// </summary>
 		public ConnectionSQL()
 		{
-			string host = "server1.hosting.reg.ru"; // ВСТАВИТЬ СВОИ ДАННЫЕ !!!!!!!!!!
-			
-			string database = ""; // ВСТАВИТЬ СВОИ ДАННЫЕ !!!!!!!!!!
-			string username = ""; // ВСТАВИТЬ СВОИ ДАННЫЕ !!!!!!!!!!
-			string password = ""; // ВСТАВИТЬ СВОИ ДАННЫЕ !!!!!!!!!!
 
-			// ----- ЛОКАЛЬНО НА localhost
-			//string host = "localhost";
-			//int port = 3306;
-			//string database = "name_database";
-			//string username = "root";
-			//string password = "";
+			string connStr = @"User Id=postgres.fkflxdbyxxluwnisodtu;
+								Password=Slavatop228;
+								Server=aws-0-eu-central-1.pooler.supabase.com;
+								Port=5432;
+								Database=postgres;
+								CommandTimeout=300;
+								Timeout=300;";
 
-			string connStr = "Host=db.fkflxdbyxxluwnisodtu.supabase.co;Username=postgres;Password=Slavatop228;Database=postgres";
+			conn = new NpgsqlConnection(connStr);
+		}
+
+		public ConnectionSQL(string connStr)
+		{
+
+			connStr = @"User Id=postgres.fkflxdbyxxluwnisodtu;
+								Password=Slavatop228;
+								Server=aws-0-eu-central-1.pooler.supabase.com;
+								Port=5432;
+								Database=postgres;
+								CommandTimeout=300;
+								Timeout=300;";
 
 			conn = new NpgsqlConnection(connStr);
 		}
@@ -47,7 +55,21 @@ namespace MusicLibForms
 			NpgsqlCommand command = new NpgsqlCommand(sqlQuery, conn);
 
 			reader = command.ExecuteReader(); // исполнение запроса и получение данных из БД
-			
+
+			return reader;
+		}
+
+		// <summary>
+		/// Чтение результата запроса из таблицы
+		/// </summary>
+		/// <param name="sqlQuery"> Запрос в виде строчки </param>
+		/// <returns></returns>
+		public NpgsqlDataReader Query(NpgsqlCommand command) // передаем 
+		{
+			conn.Open(); // открытие соединения 
+
+			reader = command.ExecuteReader(); // исполнение запроса и получение данных из БД
+
 			return reader;
 		}
 

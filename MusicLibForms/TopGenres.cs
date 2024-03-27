@@ -11,10 +11,11 @@ using System.Windows.Forms;
 
 namespace MusicLibForms
 {
-	public partial class TopComposers : Form
+	public partial class TopGenres : Form
 	{
+
 		AnalyticWindow analWind;
-		public TopComposers(AnalyticWindow analWind)
+		public TopGenres(AnalyticWindow analWind)
 		{
 			InitializeComponent();
 			this.analWind = analWind;
@@ -30,26 +31,24 @@ namespace MusicLibForms
 														GROUP BY
 															p.song_id)
 														SELECT
-															c.nickname as Псевдоним,
-															c.name as ФИО,
-															sum(CASE
-																WHEN cp.counter IS NULL THEN 0
-																ELSE cp.counter
-															END) AS Количество_покупок,
-															sum(CASE
-																WHEN cp.counter IS NULL THEN 0::money
-																ELSE cp.counter * s.price
-															END) AS Итоговая_сумма 
+															g.name as ""Жанр"",
+															SUM(cp.counter) AS ""Количество покупок"",
+															SUM(cp.counter * s.price) AS ""Сумма покупок""
 														FROM
-																songs s
-														LEFT JOIN composers c ON
-																s.composer_id = c.id
-														LEFT JOIN count_purchases cp ON
-																s.id = cp.song_id
+															genres g
+														JOIN songs_genres sg
+														ON
+															sg.genre_id = g.id
+														JOIN count_purchases cp
+														ON
+															cp.song_id = sg.song_id
+														JOIN songs s
+														ON
+															s.id = cp.song_id
 														GROUP BY
-															c.id
+															g.id
 														ORDER BY
-																Итоговая_сумма DESC;");
+															""Количество покупок"" DESC");
 			if (dataReader.HasRows)
 			{
 				DataTable dt = new DataTable();
@@ -64,17 +63,12 @@ namespace MusicLibForms
 			Hide();
 		}
 
-		private void TopComposers_FormClosing(object sender, FormClosingEventArgs e)
+		private void TopGenres_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			Environment.Exit(0);
 		}
 
-		private void TopComposers_Load(object sender, EventArgs e)
-		{
-
-		}
-
-		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		private void TopGenres_Load(object sender, EventArgs e)
 		{
 
 		}

@@ -5,22 +5,31 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MusicLibForms
 {
 	public partial class SongsCRUD : Form
 	{
+		string newFilePath;
+		string musicPath = "C:\\Users\\slava\\Music\\";
+		WMPLib.WindowsMediaPlayer player;
 		public SongsCRUD()
 		{
 			InitializeComponent();
 			UpdateSongsData();
+			player = new WMPLib.WindowsMediaPlayer();
+			player.settings.volume = 50;
 			ConnectionSQL conn = new ConnectionSQL();
+			
 			NpgsqlDataReader dataReader = conn.Query("SELECT id, nickname FROM Composers ORDER BY id ASC");
 			if (dataReader.HasRows)
 			{
@@ -49,7 +58,6 @@ namespace MusicLibForms
 				labelBox.DisplayMember = "name";
 				labelBox.ValueMember = "id";
 				labelBox.SelectedValue = 0;
-				
 			}
 			conn = new ConnectionSQL();
 			dataReader = conn.Query("SELECT id, name FROM Genres ORDER BY id ASC");
@@ -69,7 +77,7 @@ namespace MusicLibForms
 			
 		}
 		private int idToUpdate;
-		private void UpdateSongsData()
+		public void UpdateSongsData()
 		{
 
 			ConnectionSQL conn = new ConnectionSQL();
@@ -102,6 +110,23 @@ namespace MusicLibForms
 					dataGridView.Columns.Add(buttonColumnUpdate);
 				}
 
+				DataGridViewButtonColumn playerColumn = new DataGridViewButtonColumn
+				{
+					Name = " ",
+					Text = "▶",
+					UseColumnTextForButtonValue = true
+				};
+				if (!dataGridView.Columns.Contains(" "))
+				{
+					dataGridView.Columns.Insert(0, playerColumn);
+				}
+				dataGridView.Columns["Композитор"].HeaderText = "Исполнитель";
+				dataGridView.Columns[" "].Width = 40;
+				dataGridView.Columns["Изменение"].Width = 90;
+				dataGridView.Columns["Удаление"].Width = 90;
+
+
+
 			}
 		}
 
@@ -120,9 +145,11 @@ namespace MusicLibForms
 			MainWindow mw = new MainWindow();
 			mw.Show();
 			Hide();
+			player.controls.stop();
 		}
 
-		private void AddSong(string name, int? composerId, int? labelId, DateTime duration, string isrc, decimal price, List<int> genres_ids)
+		private int AddSong(string name, int? composerId, int? labelId, 
+			TimeSpan duration, string isrc, decimal price, List<int> genres_ids)
 		{
 			ConnectionSQL conn = new ConnectionSQL();
 			conn.conn.Open();
@@ -143,7 +170,7 @@ namespace MusicLibForms
 												);
 												SELECT 
 													currval(pg_get_serial_sequence('Songs','id'))", conn.conn);
-
+			
 			if (labelId == 0)
 			{
 				command.Parameters.AddWithValue("@label_id", DBNull.Value);
@@ -169,6 +196,8 @@ namespace MusicLibForms
 				command.ExecuteNonQuery();
 			}
 
+			return newId;
+
 		}
 
 		private void AddButton_Click(object sender, EventArgs e)
@@ -189,15 +218,29 @@ namespace MusicLibForms
 
 			string priceTextRaw = priceText.Text;
 			priceTextRaw = priceTextRaw.Replace(".", ",");
-			if (timePicker.Value.TimeOfDay.TotalSeconds == 0)
+			
+
+
+			if (nameText.Text != "" && isrcText.Text != "" && priceTextRaw != "" && !string.IsNullOrEmpty(newFilePath))
 			{
-				MessageBox.Show("Введите корректное время");
-				return;
-			}
-			if (nameText.Text != "" && isrcText.Text != "" && priceTextRaw != "")
-			{
-				AddSong(nameText.Text, composerId, labelId, timePicker.Value, isrcText.Text, Convert.ToDecimal(priceTextRaw), genreIds);
+				// Получаем длительность
+				WMPLib.WindowsMediaPlayer durPlayer = new WMPLib.WindowsMediaPlayer();
+				WMPLib.IWMPMedia media = durPlayer.newMedia(newFilePath);
+				string duration = media.durationString;
+				MessageBox.Show(duration);
+				durPlayer = null;
+				TimeSpan dur = TimeSpan.ParseExact(duration, "mm\\:ss", null);
+				MessageBox.Show(dur.ToString());
+
+
+
+				int songId = AddSong(nameText.Text, composerId, labelId, dur, isrcText.Text, Convert.ToDecimal(priceTextRaw), genreIds);
 				UpdateSongsData();
+				System.IO.File.Move(newFilePath, musicPath+$"{songId}.mp3");
+
+
+				newFilePath = null;
+				loadedFileBox.Text = "Файл не загружен!";
 			}
 			else
 			{
@@ -224,7 +267,6 @@ namespace MusicLibForms
 				updateLabelBox.ValueMember = "id";
 				updateLabelBox.SelectedValue = labelBox.SelectedValue;
 
-				updateTimePicker.Value = timePicker.Value;
 
 				updateIsrcText.Text = isrcText.Text;
 				updatePriceText.Text = priceText.Text;
@@ -242,7 +284,7 @@ namespace MusicLibForms
 			}
 		}
 
-		private void OpenForUpdate(string name, string composer, string label, DateTime duration, string isrc, string price, List<string> genres)
+		private void OpenForUpdate(string name, string composer, string label, string isrc, string price, List<string> genres)
 		{
 			UpdateGroup.Visible = true;
 			updateNameText.Text = name;
@@ -273,7 +315,6 @@ namespace MusicLibForms
 				}
 			}
 
-			updateTimePicker.Value = duration;
 
 			updateIsrcText.Text = isrc;
 			updatePriceText.Text = price;
@@ -293,7 +334,8 @@ namespace MusicLibForms
 			}
 		}
 
-		private void UpdateSong(string newName, int? newComposerId, int? newLabelId, DateTime newDuration, string newIsrc, decimal newPrice, List<int> newGenres_ids)
+		private void UpdateSong(string newName, int? newComposerId, int? newLabelId, string newIsrc, 
+			decimal newPrice, List<int> newGenres_ids)
 		{
 			ConnectionSQL conn = new ConnectionSQL();
 			conn.conn.Open();
@@ -307,7 +349,6 @@ namespace MusicLibForms
 											name = @newName,
 											composer_id = @newComposerId,
 											label_id = @newLabelId,
-											duration = @newDuration::time,
 											isrc = @newIsrc,
 											price = @newPrice::money
 										WHERE
@@ -332,7 +373,6 @@ namespace MusicLibForms
 			command.Parameters.AddWithValue("@newName", newName);
 			command.Parameters.AddWithValue("@newComposerId", newComposerId);
 
-			command.Parameters.AddWithValue("@newDuration", newDuration.ToString("HH:mm:ss"));
 			command.Parameters.AddWithValue("@newIsrc", newIsrc);
 			command.Parameters.AddWithValue("@newPrice", newPrice);
 			command.Parameters.AddWithValue("@idToUpdate", idToUpdate);
@@ -361,11 +401,6 @@ namespace MusicLibForms
 
 			string newPriceTextRaw = updatePriceText.Text;
 			newPriceTextRaw = newPriceTextRaw.Replace(".", ",");
-			if (updateTimePicker.Value.TimeOfDay.TotalSeconds == 0)
-			{
-				MessageBox.Show("Введите корректное время");
-				return;
-			}
 			if (updateIsrcText.Text.Length != 15)
 			{
 				MessageBox.Show("Введите корректный ISRC код");
@@ -373,7 +408,7 @@ namespace MusicLibForms
 			}
 			if (updateNameText.Text != "" && updateIsrcText.Text != "" && newPriceTextRaw != "")
 			{
-				UpdateSong(updateNameText.Text, newComposerId, newLabelId, updateTimePicker.Value, updateIsrcText.Text, Convert.ToDecimal(newPriceTextRaw), newGenres_ids);
+				UpdateSong(updateNameText.Text, newComposerId, newLabelId, updateIsrcText.Text, Convert.ToDecimal(newPriceTextRaw), newGenres_ids);
 				UpdateSongsData();
 				UpdateGroup.Visible = false;
 			}
@@ -425,14 +460,26 @@ namespace MusicLibForms
 				string name = dataGridView.CurrentRow.Cells["Название"].Value.ToString();
 				string composer = dataGridView.CurrentRow.Cells["Композитор"].Value.ToString();
 				string label = dataGridView.CurrentRow.Cells["Лейбл"].Value.ToString();
-				string duration = dataGridView.CurrentRow.Cells["Длительность"].Value.ToString();
 				string isrc = dataGridView.CurrentRow.Cells["ISRC"].Value.ToString();
 				string price = dataGridView.CurrentRow.Cells["Цена"].Value.ToString();
 				List<string> genres = dataGridView.CurrentRow.Cells["Жанры"].Value.ToString().Replace("; ", ";").Split(';').ToList();
 
-				DateTime durationParsed = Convert.ToDateTime(duration);
 				
-				OpenForUpdate(name, composer, label, durationParsed, isrc, price, genres);
+				
+				OpenForUpdate(name, composer, label, isrc, price, genres);
+
+			}
+
+			else if (e.ColumnIndex == dataGridView.Columns[" "].Index)
+			{
+				playerPanel.Visible = true;
+				int song_id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+				string songName = dataGridView.CurrentRow.Cells["Название"].Value.ToString();
+				string author = dataGridView.CurrentRow.Cells["Композитор"].Value.ToString();
+				player.controls.stop();
+				player.URL = $"{musicPath}{song_id}.mp3";
+				songNameBox.Text = author + " - " + songName;
+				player.controls.play();
 
 			}
 		}
@@ -440,6 +487,45 @@ namespace MusicLibForms
 		private void HideUpdateButton_Click(object sender, EventArgs e)
 		{
 			UpdateGroup.Visible = false;
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			openFileDialog1.Filter = "MP3|*.mp3";
+			if (openFileDialog1.ShowDialog() == DialogResult.OK)
+			{
+				string filePath = openFileDialog1.FileName;
+				FileInfo info = new FileInfo(filePath);
+				string fileName = info.Name;
+				loadedFileBox.Text = "Загружено: " + fileName;
+				newFilePath = filePath;
+			}
+		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			player.controls.stop();
+			playerPanel.Visible = false;
+		}
+
+		private void textBox3_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void textBox6_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void textBox5_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void textBox7_TextChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

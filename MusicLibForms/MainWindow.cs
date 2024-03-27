@@ -15,14 +15,10 @@ namespace MusicLibForms
 		public MainWindow()
 		{
 			InitializeComponent();
+			this.Select();
 		}
 
-		private void button1_Click(object sender, EventArgs e)
-		{
-			TopSongsWindow tsw = new TopSongsWindow();
-			tsw.Show();
-			Hide();
-		}
+		
 
 		private void MainWindow_Load(object sender, EventArgs e)
 		{
@@ -41,18 +37,32 @@ namespace MusicLibForms
 			Environment.Exit(0);
 		}
 
-		private void TopComposersButton_Click(object sender, EventArgs e)
-		{
-			TopComposers tc = new TopComposers();
-			tc.Show();
-			Hide();
-		}
+		
 
 		private void buySongs_Click(object sender, EventArgs e)
 		{
-			BuySongWindow bsw = new BuySongWindow();
-			bsw.Show();
+			//BuySongWindow bsw = new BuySongWindow(this);
+			//bsw.Show();
+			//Hide();
+		}
+
+		private void loginButton_Click(object sender, EventArgs e)
+		{
+			LoginWindow lw = new LoginWindow(this);
+			lw.Show();
 			Hide();
+		}
+
+		private void registerButton_Click(object sender, EventArgs e)
+		{
+			RegisterWindow rw = new RegisterWindow(this);
+			rw.Show();
+			Hide();
+		}
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

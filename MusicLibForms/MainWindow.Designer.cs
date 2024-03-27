@@ -28,75 +28,67 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
-			this.TopComposersButton = new System.Windows.Forms.Button();
-			this.buySongs = new System.Windows.Forms.Button();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.loginButton = new System.Windows.Forms.Button();
+			this.registerButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// button1
+			// textBox1
 			// 
-			this.button1.Location = new System.Drawing.Point(21, 380);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(200, 46);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "Топ песен";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.textBox1.Location = new System.Drawing.Point(223, 86);
+			this.textBox1.Multiline = true;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(534, 90);
+			this.textBox1.TabIndex = 4;
+			this.textBox1.TabStop = false;
+			this.textBox1.Text = "Добро пожаловать \r\nв музыкальную библиотеку!";
+			this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
-			// button2
+			// loginButton
 			// 
-			this.button2.Location = new System.Drawing.Point(21, 12);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(200, 54);
-			this.button2.TabIndex = 1;
-			this.button2.Text = "Песни (таблица)";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.button2_Click_1);
+			this.loginButton.Location = new System.Drawing.Point(223, 182);
+			this.loginButton.Name = "loginButton";
+			this.loginButton.Size = new System.Drawing.Size(534, 77);
+			this.loginButton.TabIndex = 5;
+			this.loginButton.Text = "Вход";
+			this.loginButton.UseVisualStyleBackColor = true;
+			this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
 			// 
-			// TopComposersButton
+			// registerButton
 			// 
-			this.TopComposersButton.Location = new System.Drawing.Point(21, 319);
-			this.TopComposersButton.Name = "TopComposersButton";
-			this.TopComposersButton.Size = new System.Drawing.Size(200, 46);
-			this.TopComposersButton.TabIndex = 2;
-			this.TopComposersButton.Text = "Топ композиторов";
-			this.TopComposersButton.UseVisualStyleBackColor = true;
-			this.TopComposersButton.Click += new System.EventHandler(this.TopComposersButton_Click);
-			// 
-			// buySongs
-			// 
-			this.buySongs.Location = new System.Drawing.Point(575, 16);
-			this.buySongs.Name = "buySongs";
-			this.buySongs.Size = new System.Drawing.Size(200, 46);
-			this.buySongs.TabIndex = 3;
-			this.buySongs.Text = "Купить";
-			this.buySongs.UseVisualStyleBackColor = true;
-			this.buySongs.Click += new System.EventHandler(this.buySongs_Click);
+			this.registerButton.Location = new System.Drawing.Point(223, 265);
+			this.registerButton.Name = "registerButton";
+			this.registerButton.Size = new System.Drawing.Size(534, 86);
+			this.registerButton.TabIndex = 6;
+			this.registerButton.Text = "Регистрация";
+			this.registerButton.UseVisualStyleBackColor = true;
+			this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
 			// 
 			// MainWindow
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1300, 905);
-			this.Controls.Add(this.buySongs);
-			this.Controls.Add(this.TopComposersButton);
-			this.Controls.Add(this.button2);
-			this.Controls.Add(this.button1);
+			this.ClientSize = new System.Drawing.Size(977, 449);
+			this.Controls.Add(this.registerButton);
+			this.Controls.Add(this.loginButton);
+			this.Controls.Add(this.textBox1);
+			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.Name = "MainWindow";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "MainWindow";
+			this.Text = "Главное окно";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
 			this.Load += new System.EventHandler(this.MainWindow_Load);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button TopComposersButton;
-		private System.Windows.Forms.Button buySongs;
+		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.Button loginButton;
+		private System.Windows.Forms.Button registerButton;
 	}
 }
