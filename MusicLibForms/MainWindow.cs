@@ -37,14 +37,6 @@ namespace MusicLibForms
 			Environment.Exit(0);
 		}
 
-		
-
-		private void buySongs_Click(object sender, EventArgs e)
-		{
-			//BuySongWindow bsw = new BuySongWindow(this);
-			//bsw.Show();
-			//Hide();
-		}
 
 		private void loginButton_Click(object sender, EventArgs e)
 		{
