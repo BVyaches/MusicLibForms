@@ -37,12 +37,6 @@ namespace MusicLibForms
 				return false;
 			}
 
-			if (!int.TryParse(message, out _))
-			{
-				MessageBox.Show($"Пожалуйста, введите корректный {boxName}");
-				return false;
-			}
-
 			if (message.Length != len)
 			{
 				MessageBox.Show($"Пожалуйста, введите корректный {boxName}");

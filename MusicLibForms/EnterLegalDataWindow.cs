@@ -69,21 +69,26 @@ namespace MusicLibForms
 			string urAdd = addressBox.Text;
 			if (!Validator.ValidateNotEmpty(urAdd, "Юридический адрес")) return;
 			string inn = innBox.Text;
-			if (!Validator.ValidateNotEmpty(inn, "ИНН")) return;
+			if (!Validator.ValidateIntLen(inn, 10, "ИНН")) return;
 			string kpp = kppBox.Text;
-			if (!Validator.ValidateNotEmpty(kpp, "КПП")) return;
+			if (!Validator.ValidateIntLen(kpp, 9, "КПП")) return;
 			string bank = BankBox.Text;
 			if (!Validator.ValidateNotEmpty(bank, "Банк")) return;
 			string bankAcc = bankAccBox.Text;
-			if (!Validator.ValidateNotEmpty(bankAcc, "Расчетный счет")) return;
+			if (!Validator.ValidateIntLen(bankAcc, 20, "Расчетный счет")) return;
 			string bik = bikBox.Text;
-			if (!Validator.ValidateNotEmpty(bik, "БИК")) return;
+			if (!Validator.ValidateIntLen(bik, 9, "БИК")) return;
 
 
 			ArrayList data = new ArrayList { compName, urAdd, inn, kpp, bank, bankAcc, bik };
 			PaymentWindow pw = new PaymentWindow(login, songId, true, data, this);
 			Hide();
 			pw.Show();
+		}
+
+		private void innBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+		{
+
 		}
 	}
 }

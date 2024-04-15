@@ -100,7 +100,7 @@ namespace MusicLibForms
 			MessageBox.Show($"Транзакция успешна, код договора: {dealId}.\n" +
 				$"Договор {dealId}.pdf сохранен в папку загрузки");
 
-			DocxFiller doc = new DocxFiller("C:\\Users\\slava\\OneDrive\\Документы\\templates\\");
+			DocxFiller doc = new DocxFiller("C:\\Users\\slava\\Documents\\");
 			doc.SaveTemplate(isLegal, $"{dealId}", args, userName, email, songName, isrc, composer, nickname, dealId.ToString());
 			Hide();
 			if (isLegal)

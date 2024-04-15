@@ -81,13 +81,13 @@
 			this.dataGridView.RowHeadersVisible = false;
 			this.dataGridView.RowHeadersWidth = 62;
 			this.dataGridView.RowTemplate.Height = 28;
-			this.dataGridView.Size = new System.Drawing.Size(1141, 394);
+			this.dataGridView.Size = new System.Drawing.Size(1141, 328);
 			this.dataGridView.TabIndex = 0;
 			this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(25, 762);
+			this.button1.Location = new System.Drawing.Point(14, 689);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(174, 66);
 			this.button1.TabIndex = 1;
@@ -98,88 +98,88 @@
 			// GenresBox
 			// 
 			this.GenresBox.FormattingEnabled = true;
-			this.GenresBox.ItemHeight = 22;
-			this.GenresBox.Location = new System.Drawing.Point(206, 592);
+			this.GenresBox.ItemHeight = 18;
+			this.GenresBox.Location = new System.Drawing.Point(195, 519);
 			this.GenresBox.Name = "GenresBox";
 			this.GenresBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-			this.GenresBox.Size = new System.Drawing.Size(146, 70);
+			this.GenresBox.Size = new System.Drawing.Size(146, 58);
 			this.GenresBox.TabIndex = 2;
 			// 
 			// textBox1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(25, 421);
+			this.textBox1.Location = new System.Drawing.Point(14, 348);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(146, 28);
+			this.textBox1.Size = new System.Drawing.Size(146, 24);
 			this.textBox1.TabIndex = 3;
 			this.textBox1.Text = "Название";
 			// 
 			// textBox2
 			// 
-			this.textBox2.Location = new System.Drawing.Point(25, 455);
+			this.textBox2.Location = new System.Drawing.Point(14, 382);
 			this.textBox2.Name = "textBox2";
 			this.textBox2.ReadOnly = true;
-			this.textBox2.Size = new System.Drawing.Size(146, 28);
+			this.textBox2.Size = new System.Drawing.Size(146, 24);
 			this.textBox2.TabIndex = 4;
 			this.textBox2.Text = "Исполнитель";
 			// 
 			// textBox3
 			// 
-			this.textBox3.Location = new System.Drawing.Point(25, 489);
+			this.textBox3.Location = new System.Drawing.Point(14, 416);
 			this.textBox3.Name = "textBox3";
 			this.textBox3.ReadOnly = true;
-			this.textBox3.Size = new System.Drawing.Size(146, 28);
+			this.textBox3.Size = new System.Drawing.Size(146, 24);
 			this.textBox3.TabIndex = 5;
 			this.textBox3.Text = "Лейбл";
 			this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
 			// 
 			// textBox5
 			// 
-			this.textBox5.Location = new System.Drawing.Point(25, 524);
+			this.textBox5.Location = new System.Drawing.Point(14, 451);
 			this.textBox5.Name = "textBox5";
 			this.textBox5.ReadOnly = true;
-			this.textBox5.Size = new System.Drawing.Size(146, 28);
+			this.textBox5.Size = new System.Drawing.Size(146, 24);
 			this.textBox5.TabIndex = 7;
 			this.textBox5.Text = "ISRC";
 			this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
 			// 
 			// textBox6
 			// 
-			this.textBox6.Location = new System.Drawing.Point(25, 558);
+			this.textBox6.Location = new System.Drawing.Point(14, 485);
 			this.textBox6.Name = "textBox6";
 			this.textBox6.ReadOnly = true;
-			this.textBox6.Size = new System.Drawing.Size(146, 28);
+			this.textBox6.Size = new System.Drawing.Size(146, 24);
 			this.textBox6.TabIndex = 8;
 			this.textBox6.Text = "Цена";
 			this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
 			// 
 			// textBox7
 			// 
-			this.textBox7.Location = new System.Drawing.Point(25, 592);
+			this.textBox7.Location = new System.Drawing.Point(14, 519);
 			this.textBox7.Name = "textBox7";
 			this.textBox7.ReadOnly = true;
-			this.textBox7.Size = new System.Drawing.Size(146, 28);
+			this.textBox7.Size = new System.Drawing.Size(146, 24);
 			this.textBox7.TabIndex = 9;
 			this.textBox7.Text = "Жанры";
 			this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
 			// 
 			// priceText
 			// 
-			this.priceText.Location = new System.Drawing.Point(206, 558);
+			this.priceText.Location = new System.Drawing.Point(195, 485);
 			this.priceText.Name = "priceText";
-			this.priceText.Size = new System.Drawing.Size(146, 28);
+			this.priceText.Size = new System.Drawing.Size(146, 24);
 			this.priceText.TabIndex = 15;
 			// 
 			// nameText
 			// 
-			this.nameText.Location = new System.Drawing.Point(206, 421);
+			this.nameText.Location = new System.Drawing.Point(195, 348);
 			this.nameText.Name = "nameText";
-			this.nameText.Size = new System.Drawing.Size(146, 28);
+			this.nameText.Size = new System.Drawing.Size(146, 24);
 			this.nameText.TabIndex = 10;
 			// 
 			// AddButton
 			// 
-			this.AddButton.Location = new System.Drawing.Point(377, 421);
+			this.AddButton.Location = new System.Drawing.Point(366, 348);
 			this.AddButton.Name = "AddButton";
 			this.AddButton.Size = new System.Drawing.Size(161, 62);
 			this.AddButton.TabIndex = 16;
@@ -191,18 +191,18 @@
 			// 
 			this.composerBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.composerBox.FormattingEnabled = true;
-			this.composerBox.Location = new System.Drawing.Point(207, 453);
+			this.composerBox.Location = new System.Drawing.Point(196, 380);
 			this.composerBox.Name = "composerBox";
-			this.composerBox.Size = new System.Drawing.Size(146, 30);
+			this.composerBox.Size = new System.Drawing.Size(146, 26);
 			this.composerBox.TabIndex = 17;
 			// 
 			// labelBox
 			// 
 			this.labelBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.labelBox.FormattingEnabled = true;
-			this.labelBox.Location = new System.Drawing.Point(206, 489);
+			this.labelBox.Location = new System.Drawing.Point(195, 416);
 			this.labelBox.Name = "labelBox";
-			this.labelBox.Size = new System.Drawing.Size(146, 30);
+			this.labelBox.Size = new System.Drawing.Size(146, 26);
 			this.labelBox.TabIndex = 18;
 			// 
 			// UpdateGroup
@@ -222,7 +222,7 @@
 			this.UpdateGroup.Controls.Add(this.textBox16);
 			this.UpdateGroup.Controls.Add(this.textBox17);
 			this.UpdateGroup.Controls.Add(this.updateGenresBox);
-			this.UpdateGroup.Location = new System.Drawing.Point(563, 410);
+			this.UpdateGroup.Location = new System.Drawing.Point(552, 337);
 			this.UpdateGroup.Name = "UpdateGroup";
 			this.UpdateGroup.Size = new System.Drawing.Size(590, 262);
 			this.UpdateGroup.TabIndex = 20;
@@ -233,7 +233,7 @@
 			this.updateIsrcText.Location = new System.Drawing.Point(203, 115);
 			this.updateIsrcText.Mask = "LL-LLL-00-00000";
 			this.updateIsrcText.Name = "updateIsrcText";
-			this.updateIsrcText.Size = new System.Drawing.Size(146, 28);
+			this.updateIsrcText.Size = new System.Drawing.Size(146, 24);
 			this.updateIsrcText.TabIndex = 36;
 			// 
 			// HideUpdateButton
@@ -264,7 +264,7 @@
 			this.updateLabelBox.FormattingEnabled = true;
 			this.updateLabelBox.Location = new System.Drawing.Point(203, 79);
 			this.updateLabelBox.Name = "updateLabelBox";
-			this.updateLabelBox.Size = new System.Drawing.Size(146, 30);
+			this.updateLabelBox.Size = new System.Drawing.Size(146, 26);
 			this.updateLabelBox.TabIndex = 32;
 			// 
 			// updateComposerBox
@@ -273,21 +273,21 @@
 			this.updateComposerBox.FormattingEnabled = true;
 			this.updateComposerBox.Location = new System.Drawing.Point(203, 45);
 			this.updateComposerBox.Name = "updateComposerBox";
-			this.updateComposerBox.Size = new System.Drawing.Size(146, 30);
+			this.updateComposerBox.Size = new System.Drawing.Size(146, 26);
 			this.updateComposerBox.TabIndex = 31;
 			// 
 			// updatePriceText
 			// 
 			this.updatePriceText.Location = new System.Drawing.Point(203, 148);
 			this.updatePriceText.Name = "updatePriceText";
-			this.updatePriceText.Size = new System.Drawing.Size(146, 28);
+			this.updatePriceText.Size = new System.Drawing.Size(146, 24);
 			this.updatePriceText.TabIndex = 30;
 			// 
 			// updateNameText
 			// 
 			this.updateNameText.Location = new System.Drawing.Point(203, 11);
 			this.updateNameText.Name = "updateNameText";
-			this.updateNameText.Size = new System.Drawing.Size(146, 28);
+			this.updateNameText.Size = new System.Drawing.Size(146, 24);
 			this.updateNameText.TabIndex = 28;
 			// 
 			// textBox11
@@ -295,7 +295,7 @@
 			this.textBox11.Location = new System.Drawing.Point(18, 183);
 			this.textBox11.Name = "textBox11";
 			this.textBox11.ReadOnly = true;
-			this.textBox11.Size = new System.Drawing.Size(146, 28);
+			this.textBox11.Size = new System.Drawing.Size(146, 24);
 			this.textBox11.TabIndex = 27;
 			this.textBox11.Text = "Жанры";
 			// 
@@ -304,7 +304,7 @@
 			this.textBox12.Location = new System.Drawing.Point(18, 149);
 			this.textBox12.Name = "textBox12";
 			this.textBox12.ReadOnly = true;
-			this.textBox12.Size = new System.Drawing.Size(146, 28);
+			this.textBox12.Size = new System.Drawing.Size(146, 24);
 			this.textBox12.TabIndex = 26;
 			this.textBox12.Text = "Цена";
 			// 
@@ -313,7 +313,7 @@
 			this.textBox13.Location = new System.Drawing.Point(18, 115);
 			this.textBox13.Name = "textBox13";
 			this.textBox13.ReadOnly = true;
-			this.textBox13.Size = new System.Drawing.Size(146, 28);
+			this.textBox13.Size = new System.Drawing.Size(146, 24);
 			this.textBox13.TabIndex = 25;
 			this.textBox13.Text = "ISRC";
 			// 
@@ -322,7 +322,7 @@
 			this.textBox15.Location = new System.Drawing.Point(18, 79);
 			this.textBox15.Name = "textBox15";
 			this.textBox15.ReadOnly = true;
-			this.textBox15.Size = new System.Drawing.Size(146, 28);
+			this.textBox15.Size = new System.Drawing.Size(146, 24);
 			this.textBox15.TabIndex = 23;
 			this.textBox15.Text = "Лейбл";
 			// 
@@ -331,7 +331,7 @@
 			this.textBox16.Location = new System.Drawing.Point(18, 45);
 			this.textBox16.Name = "textBox16";
 			this.textBox16.ReadOnly = true;
-			this.textBox16.Size = new System.Drawing.Size(146, 28);
+			this.textBox16.Size = new System.Drawing.Size(146, 24);
 			this.textBox16.TabIndex = 22;
 			this.textBox16.Text = "Исполнитель";
 			// 
@@ -340,31 +340,31 @@
 			this.textBox17.Location = new System.Drawing.Point(18, 11);
 			this.textBox17.Name = "textBox17";
 			this.textBox17.ReadOnly = true;
-			this.textBox17.Size = new System.Drawing.Size(146, 28);
+			this.textBox17.Size = new System.Drawing.Size(146, 24);
 			this.textBox17.TabIndex = 21;
 			this.textBox17.Text = "Название";
 			// 
 			// updateGenresBox
 			// 
 			this.updateGenresBox.FormattingEnabled = true;
-			this.updateGenresBox.ItemHeight = 22;
+			this.updateGenresBox.ItemHeight = 18;
 			this.updateGenresBox.Location = new System.Drawing.Point(203, 182);
 			this.updateGenresBox.Name = "updateGenresBox";
 			this.updateGenresBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-			this.updateGenresBox.Size = new System.Drawing.Size(146, 70);
+			this.updateGenresBox.Size = new System.Drawing.Size(146, 58);
 			this.updateGenresBox.TabIndex = 20;
 			// 
 			// isrcText
 			// 
-			this.isrcText.Location = new System.Drawing.Point(206, 525);
+			this.isrcText.Location = new System.Drawing.Point(195, 452);
 			this.isrcText.Mask = "LL-LLL-00-00000";
 			this.isrcText.Name = "isrcText";
-			this.isrcText.Size = new System.Drawing.Size(146, 28);
+			this.isrcText.Size = new System.Drawing.Size(146, 24);
 			this.isrcText.TabIndex = 21;
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(25, 668);
+			this.button2.Location = new System.Drawing.Point(14, 595);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(328, 41);
 			this.button2.TabIndex = 22;
@@ -374,10 +374,10 @@
 			// 
 			// loadedFileBox
 			// 
-			this.loadedFileBox.Location = new System.Drawing.Point(25, 717);
+			this.loadedFileBox.Location = new System.Drawing.Point(14, 644);
 			this.loadedFileBox.Name = "loadedFileBox";
 			this.loadedFileBox.ReadOnly = true;
-			this.loadedFileBox.Size = new System.Drawing.Size(327, 28);
+			this.loadedFileBox.Size = new System.Drawing.Size(327, 24);
 			this.loadedFileBox.TabIndex = 23;
 			this.loadedFileBox.Text = "Файл не загружен!";
 			this.loadedFileBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -393,11 +393,12 @@
 			this.playerPanel.Controls.Add(this.songNameBox);
 			this.playerPanel.Controls.Add(this.textBox8);
 			this.playerPanel.Controls.Add(this.button3);
-			this.playerPanel.Location = new System.Drawing.Point(377, 739);
+			this.playerPanel.Location = new System.Drawing.Point(366, 666);
 			this.playerPanel.Name = "playerPanel";
 			this.playerPanel.Size = new System.Drawing.Size(331, 89);
 			this.playerPanel.TabIndex = 24;
 			this.playerPanel.Visible = false;
+			this.playerPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.playerPanel_Paint);
 			// 
 			// songNameBox
 			// 
@@ -413,7 +414,7 @@
 			this.textBox8.Location = new System.Drawing.Point(4, 4);
 			this.textBox8.Name = "textBox8";
 			this.textBox8.ReadOnly = true;
-			this.textBox8.Size = new System.Drawing.Size(146, 28);
+			this.textBox8.Size = new System.Drawing.Size(146, 24);
 			this.textBox8.TabIndex = 0;
 			this.textBox8.Text = "Сейчас играет:";
 			// 
@@ -430,9 +431,9 @@
 			// 
 			// SongsCRUD
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1163, 840);
+			this.ClientSize = new System.Drawing.Size(1163, 760);
 			this.Controls.Add(this.playerPanel);
 			this.Controls.Add(this.loadedFileBox);
 			this.Controls.Add(this.button2);

@@ -49,10 +49,15 @@ namespace MusicLibForms
 		private void enterButton_Click(object sender, EventArgs e)
 		{
 			string inn = innBox.Text;
-			if (!Validator.ValidateNotEmpty(inn, "ИНН")) return;
+			if (!Validator.ValidateIntLen(inn, 12, "ИНН")) return;
 			DateTime bDate = birthDate.Value.Date;
 			string passport = passportText.Text;
 			if (!Validator.ValidateNotEmpty(passport, "Серия и номер паспорта")) return;
+			if (passport.Length != 12)
+			{
+				MessageBox.Show("Введите корректные паспортные данные");
+				return;
+			}
 			DateTime pDate = passportDate.Value.Date;
 			string address = addressBox.Text;
 			if (!Validator.ValidateNotEmpty(address, "Адрес проживания")) return;

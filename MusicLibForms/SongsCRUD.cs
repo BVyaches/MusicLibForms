@@ -227,10 +227,8 @@ namespace MusicLibForms
 				WMPLib.WindowsMediaPlayer durPlayer = new WMPLib.WindowsMediaPlayer();
 				WMPLib.IWMPMedia media = durPlayer.newMedia(newFilePath);
 				string duration = media.durationString;
-				MessageBox.Show(duration);
 				durPlayer = null;
 				TimeSpan dur = TimeSpan.ParseExact(duration, "mm\\:ss", null);
-				MessageBox.Show(dur.ToString());
 
 
 
@@ -524,6 +522,11 @@ namespace MusicLibForms
 		}
 
 		private void textBox7_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void playerPanel_Paint(object sender, PaintEventArgs e)
 		{
 
 		}

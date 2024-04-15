@@ -34,12 +34,12 @@ namespace MusicLibForms
 		private void loginButton_Click(object sender, EventArgs e)
 		{
 			string login = loginBox.Text;
-			if (!Validator.ValidateNotEmpty(login)) return;
+			if (!Validator.ValidateNotEmpty(login, "Логин")) return;
 
 			string name = nameBox.Text;
-			if (!Validator.ValidateNotEmpty(name)) return;
+			if (!Validator.ValidateNotEmpty(name, "ФИО")) return;
 			string password = passwordBox.Text;
-			if (!Validator.ValidateNotEmpty(password)) return;
+			if (!Validator.ValidateNotEmpty(password, "Пароль")) return;
 			string repeat = repeatPassBox.Text;
 
 			if (password != repeat)
@@ -49,7 +49,12 @@ namespace MusicLibForms
 			}
 
 			string email = emailBox.Text;
-			if (!Validator.ValidateNotEmpty(email) || !email.Contains("@")) return;
+			if (!Validator.ValidateNotEmpty(email, "email")) return;
+			if (!email.Contains("@"))
+			{
+				MessageBox.Show("Пожалуйста, введите корректный email");
+				return;
+			}
 			bool isLegal = isLegalBox.Checked;
 
 
